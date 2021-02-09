@@ -11,9 +11,9 @@ namespace ScoreBoard.Tests
 
             board.StartGame("Mexico","Canada");
 
-            Assert.Single(board.games);
+            Assert.Single(board.Games);
 
-            foreach (var game in board.games)
+            foreach (Game game in board.Games)
             {
                 Assert.Equal(0, game.Home.Score);
                 Assert.Equal("Mexico", game.Home.Name);
@@ -29,9 +29,9 @@ namespace ScoreBoard.Tests
 
             board.StartGame(string.Empty, string.Empty);
 
-            Assert.Single(board.games);
+            Assert.Single(board.Games);
 
-            foreach (var game in board.games)
+            foreach (var game in board.Games)
             {
                 Assert.Equal(0, game.Home.Score);
                 Assert.Equal("", game.Home.Name);
@@ -49,9 +49,9 @@ namespace ScoreBoard.Tests
             board.StartGame("Spain", "Brazil");
             board.StartGame("Germany", "France");
 
-            Assert.Equal(3, board.games.Count);
+            Assert.Equal(3, board.Games.Count);
 
-            foreach (var game in board.games)
+            foreach (var game in board.Games)
             {
                 Assert.Equal(0, game.Home.Score);
                 Assert.Equal(0, game.Away.Score);
@@ -69,10 +69,10 @@ namespace ScoreBoard.Tests
 
             board.FinishGame(1);
 
-            Assert.Equal(2, board.games.Count);
-            Assert.Equal("Mexico", board.games[0].Home.Name);
+            Assert.Equal(2, board.Games.Count);
+            Assert.Equal("Mexico", board.Games[0].Home.Name);
 
-            foreach (var game in board.games)
+            foreach (var game in board.Games)
             {
                 Assert.NotEqual("Spain", game.Home.Name);
             }
@@ -90,7 +90,7 @@ namespace ScoreBoard.Tests
             board.FinishGame(10);
             board.FinishGame(-1);
 
-            Assert.Equal(3, board.games.Count);            
+            Assert.Equal(3, board.Games.Count);            
         }
 
         [Fact]
@@ -105,8 +105,8 @@ namespace ScoreBoard.Tests
             board.UpdateScore(0, 1, 0);
             board.UpdateScore(1, 3, 1);
 
-            Assert.Equal(1, board.games[0].Home.Score);
-            Assert.Equal(1, board.games[1].Away.Score);
+            Assert.Equal(1, board.Games[0].Home.Score);
+            Assert.Equal(1, board.Games[1].Away.Score);
         }
 
         [Fact]
@@ -118,8 +118,8 @@ namespace ScoreBoard.Tests
 
             board.UpdateScore(4, 1, 0);
 
-            Assert.Equal(0, board.games[0].Home.Score);
-            Assert.Equal(0, board.games[0].Away.Score);
+            Assert.Equal(0, board.Games[0].Home.Score);
+            Assert.Equal(0, board.Games[0].Away.Score);
         }
 
         [Fact]
@@ -131,8 +131,8 @@ namespace ScoreBoard.Tests
 
             board.UpdateScore(0, -1, 0);
 
-            Assert.Equal(0, board.games[0].Home.Score);
-            Assert.Equal(0, board.games[0].Away.Score);
+            Assert.Equal(0, board.Games[0].Home.Score);
+            Assert.Equal(0, board.Games[0].Away.Score);
         }
 
         [Fact]
