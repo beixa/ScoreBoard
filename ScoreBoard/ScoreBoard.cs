@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace ScoreBoard
 {
@@ -23,5 +24,11 @@ namespace ScoreBoard
             if (games.Exists(x => x.Id == id) && homeScore >= 0 && awayScore >=0)
                 games.Find(x => x.Id == id).UpdateScore(homeScore, awayScore);
         }
+
+        public List<Game> GetSummary()
+        {
+            return games.OrderByDescending(x => x.TotalScore()).ThenByDescending(x => x.Id).ToList();
+        }
+        
     }
 }

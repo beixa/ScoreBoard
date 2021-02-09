@@ -134,5 +134,30 @@ namespace ScoreBoard.Tests
             Assert.Equal(0, board.games[0].Home.Score);
             Assert.Equal(0, board.games[0].Away.Score);
         }
+
+        [Fact]
+        public void Get_Summary()
+        {
+            ScoreBoard board = new ScoreBoard();
+
+            board.StartGame("Mexico", "Canada");
+            board.UpdateScore(0, 0, 5);
+            board.StartGame("Spain", "Brazil");
+            board.UpdateScore(1, 10, 2);
+            board.StartGame("Germany", "France");
+            board.UpdateScore(2, 2, 2);
+            board.StartGame("Uruguay", "Italy");
+            board.UpdateScore(3, 6, 6);
+            board.StartGame("Argentina", "Australia");
+            board.UpdateScore(4, 3, 1);
+
+            var sum = board.GetSummary();
+
+            Assert.Equal(3, sum[0].Id);
+            Assert.Equal(1, sum[1].Id);
+            Assert.Equal(0, sum[2].Id);
+            Assert.Equal(4, sum[3].Id);
+            Assert.Equal(2, sum[4].Id);
+        }
     }
 }

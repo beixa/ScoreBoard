@@ -18,5 +18,7 @@
             Home.Score = homeScore;
             Away.Score = awayScore;
         }
+
+        public int TotalScore() => Home.Score + Away.Score;
     }
 }
