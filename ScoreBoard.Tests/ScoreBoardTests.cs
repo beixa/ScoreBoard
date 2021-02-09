@@ -70,11 +70,11 @@ namespace ScoreBoard.Tests
             board.FinishGame(1);
 
             Assert.Equal(2, board.games.Count);
-            Assert.Equal("Spain", board.games[0].Home.Name);
+            Assert.Equal("Mexico", board.games[0].Home.Name);
 
             foreach (var game in board.games)
             {
-                Assert.NotEqual("Mexico", game.Home.Name);
+                Assert.NotEqual("Spain", game.Home.Name);
             }
         }
 
@@ -89,9 +89,50 @@ namespace ScoreBoard.Tests
 
             board.FinishGame(10);
             board.FinishGame(-1);
-            board.FinishGame(0);
 
             Assert.Equal(3, board.games.Count);            
+        }
+
+        [Fact]
+        public void Update_Score()
+        {
+            ScoreBoard board = new ScoreBoard();
+
+            board.StartGame("Mexico", "Canada");
+            board.StartGame("Spain", "Brazil");
+            board.StartGame("Germany", "France");
+
+            board.UpdateScore(0, 1, 0);
+            board.UpdateScore(1, 3, 1);
+
+            Assert.Equal(1, board.games[0].Home.Score);
+            Assert.Equal(1, board.games[1].Away.Score);
+        }
+
+        [Fact]
+        public void Update_Score_With_Invalid_Id()
+        {
+            ScoreBoard board = new ScoreBoard();
+
+            board.StartGame("Mexico", "Canada");
+
+            board.UpdateScore(4, 1, 0);
+
+            Assert.Equal(0, board.games[0].Home.Score);
+            Assert.Equal(0, board.games[0].Away.Score);
+        }
+
+        [Fact]
+        public void Update_Score_With_Invalid_Scores()
+        {
+            ScoreBoard board = new ScoreBoard();
+
+            board.StartGame("Mexico", "Canada");
+
+            board.UpdateScore(0, -1, 0);
+
+            Assert.Equal(0, board.games[0].Home.Score);
+            Assert.Equal(0, board.games[0].Away.Score);
         }
     }
 }

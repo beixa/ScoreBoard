@@ -5,17 +5,23 @@ namespace ScoreBoard
     public class ScoreBoard
     {
         public readonly List<Game> games = new List<Game>();
-        public readonly int Id = 0;
+        private int _id = 0;
 
         public void StartGame(string home, string away)
         {
-            games.Add(new Game(new Team(home), new Team(away), Id+1));
+            games.Add(new Game(new Team(home), new Team(away), _id++));
         }
 
         public void FinishGame(int id)
         {
-            if(id <= games.Count && id > 0)
+            if(games.Exists(x => x.Id == id))
                 games.Remove(games.Find(x => x.Id == id));
+        }
+
+        public void UpdateScore(int id, int homeScore, int awayScore)
+        {
+            if (games.Exists(x => x.Id == id) && homeScore >= 0 && awayScore >=0)
+                games.Find(x => x.Id == id).UpdateScore(homeScore, awayScore);
         }
     }
 }

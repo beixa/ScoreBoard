@@ -12,5 +12,11 @@
             Home = home;
             Away = away;
         }
+
+        public void UpdateScore(int homeScore, int awayScore)
+        {
+            Home.Score = homeScore;
+            Away.Score = awayScore;
+        }
     }
 }
