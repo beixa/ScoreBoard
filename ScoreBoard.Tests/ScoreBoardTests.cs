@@ -57,5 +57,41 @@ namespace ScoreBoard.Tests
                 Assert.Equal(0, game.Away.Score);
             }
         }
+
+        [Fact]
+        public void Finish_Game()
+        {
+            ScoreBoard board = new ScoreBoard();
+
+            board.StartGame("Mexico", "Canada");
+            board.StartGame("Spain", "Brazil");
+            board.StartGame("Germany", "France");
+
+            board.FinishGame(1);
+
+            Assert.Equal(2, board.games.Count);
+            Assert.Equal("Spain", board.games[0].Home.Name);
+
+            foreach (var game in board.games)
+            {
+                Assert.NotEqual("Mexico", game.Home.Name);
+            }
+        }
+
+        [Fact]
+        public void Finish_Game_With_None_Existing_Index()
+        {
+            ScoreBoard board = new ScoreBoard();
+
+            board.StartGame("Mexico", "Canada");
+            board.StartGame("Spain", "Brazil");
+            board.StartGame("Germany", "France");
+
+            board.FinishGame(10);
+            board.FinishGame(-1);
+            board.FinishGame(0);
+
+            Assert.Equal(3, board.games.Count);            
+        }
     }
 }
